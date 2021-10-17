@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 指定驱动包的路径 -->
+	<classPathEntry
+		location="C:\Users\win7\.m2\repository\mysql\mysql-connector-java\5.1.10\mysql-connector-java-5.1.10.jar"></classPathEntry>
+	<context id="context1">
+		<!-- 对注释的生成 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true"></property>
+		</commentGenerator>
+		<!-- 与数据库连接所需的参数 -->
+		<jdbcConnection
+			connectionURL="jdbc:mysql://localhost:3306/kehu?characterEncoding=utf-8"
+			driverClass="com.mysql.jdbc.Driver" password="111111" userId="root" />
+		<!-- 生成的实体类相关设置 -->
+		<javaModelGenerator targetPackage="com.entity"
+			targetProject="ssmClient/src/main/java" />
+		<!-- 生成的映射文件相关设置 -->
+		<sqlMapGenerator targetPackage="com.mapper"
+			targetProject="ssmClient/src/main/java" />
+		<!-- 生成的DAO相关设置 -->
+		<javaClientGenerator targetPackage="com.dao"
+			targetProject="ssmClient/src/main/java" type="XMLMAPPER" />
+		<!--对数据库的表进行设置 -->
+		<!-- <table schema="xin" tableName="%" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<columnOverride column="???" property="???" />
+		</table> -->
+	<!--对数据库的表进行设置 只生成一个表 -->
+	    <table schema="kehu" tableName="%" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<!-- <columnOverride column="???" property="???" /> -->
+		</table> 
+	</context>
+</generatorConfiguration>

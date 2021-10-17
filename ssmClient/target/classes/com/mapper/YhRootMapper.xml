@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.YhRootMapper">
+  <resultMap id="BaseResultMap" type="com.entity.YhRoot">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="rootName" jdbcType="VARCHAR" property="rootname" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, rootName, url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from yh_root
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from yh_root
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.YhRoot">
+    insert into yh_root (id, rootName, url
+      )
+    values (#{id,jdbcType=INTEGER}, #{rootname,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.YhRoot">
+    insert into yh_root
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="rootname != null">
+        rootName,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="rootname != null">
+        #{rootname,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.YhRoot">
+    update yh_root
+    <set>
+      <if test="rootname != null">
+        rootName = #{rootname,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.YhRoot">
+    update yh_root
+    set rootName = #{rootname,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="show" resultType="YhRoot">
+		select <include refid="Base_Column_List" /> from yh_root
+	</select>
+</mapper>

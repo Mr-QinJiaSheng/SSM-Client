@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.KhClientinfoMapper">
+  <resultMap id="BaseResultMap" type="com.entity.KhClientinfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="kuhuname" jdbcType="VARCHAR" property="kuhuname" />
+    <result column="kehuaddres" jdbcType="VARCHAR" property="kehuaddres" />
+    <result column="kehutel" jdbcType="VARCHAR" property="kehutel" />
+    <result column="kehulei" jdbcType="VARCHAR" property="kehulei" />
+    <result column="kehugenre" jdbcType="VARCHAR" property="kehugenre" />
+    <result column="kehuday" jdbcType="VARCHAR" property="kehuday" />
+    <result column="kefuname" jdbcType="VARCHAR" property="kefuname" />
+    
+    <result column="kaiday" jdbcType="VARCHAR" property="kaiday" />
+    <result column="weixin" jdbcType="VARCHAR" property="weixin" />
+    <result column="xu" jdbcType="VARCHAR" property="xu" />
+    <result column="khremark" jdbcType="VARCHAR" property="khremark" />
+    
+    <result column="channel" jdbcType="VARCHAR" property="channel" />
+    <result column="khstate" jdbcType="VARCHAR" property="khstate" />
+    
+     <result column="qu" jdbcType="VARCHAR" property="qu" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+     <result column="yumoney" jdbcType="VARCHAR" property="yumoney" />
+    <result column="an" jdbcType="VARCHAR" property="an" />
+    <result column="jiename" jdbcType="VARCHAR" property="jiename" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, kuhuname, kehuaddres, kehutel, kehulei, kehugenre, kehuday,kefuname,kaiday,weixin,xu,khremark,channel,khstate,
+    qu,size,yumoney,an,jiename
+  </sql>
+  <select id="show" resultMap="BaseResultMap">
+	select <include refid="Base_Column_List" /> from  kh_clientinfo  where 1=1 
+	<if test="kefuname !=null and kefuname !=''">
+         and kefuname =#{kefuname,jdbcType=VARCHAR}
+    </if>
+	order by id desc limit #{start},#{pagesize} 
+  </select>
+  <select id="getTotal" resultType="int">
+		select count(id) from kh_clientinfo where 1=1 
+	<if test="kefuname !=null and kefuname !=''">
+         and kefuname =#{kefuname,jdbcType=VARCHAR}
+    </if>
+  </select>  
+  <select id="isdn" resultType="KhClientinfo">
+		select <include refid="Base_Column_List" />
+		 from kh_clientinfo order by id desc
+		limit 0,1 
+	</select>
+	
+	 <select id="tel" resultType="KhClientinfo">
+		select <include refid="Base_Column_List" />
+		 from kh_clientinfo where kehutel=#{kehutel,jdbcType=VARCHAR}
+		limit 0,1 
+	</select>
+
+    <!-- 按多个条件的一种查询: 姓名,性别,部门,学历 -->
+     <select id="like" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kh_clientinfo
+    <where> 1=1
+       <if test="kuhuname !=null and kuhuname !=''">
+			and kuhuname like "%"#{kuhuname,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="kehuaddres !=null and kehuaddres !=''">
+			and kehuaddres like "%"#{kehuaddres,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="kehutel !=null and kehutel !=''">
+			and kehutel like "%"#{kehutel,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="kehulei !=null and kehulei !=''">
+			and kehulei like "%"#{kehulei,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="kehugenre !=null and kehugenre !=''">
+			and kehugenre like "%"#{kehugenre,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="kehuday !=null and kehuday !=''">
+			and kehuday like "%"#{kehuday,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="kefuname !=null and kefuname !=''">
+			and kefuname like "%"#{kefuname,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="channel !=null and channel !=''">
+			and channel like "%"#{channel,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="khstate !=null and khstate !=''">
+			and khstate like "%"#{khstate,jdbcType=VARCHAR}"%"
+	   </if>
+	    <if test="weixin !=null and weixin !=''">
+			and weixin like "%"#{weixin,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="kaiday !=null and kaiday !=''">
+			and kaiday like "%"#{kaiday,jdbcType=VARCHAR}"%"
+	   </if>
+	   
+	   <if test="qu !=null and qu !=''">
+			and qu like "%"#{qu,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="an !=null and an !=''">
+			and an like "%"#{an,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="jiename !=null and jiename !=''">
+			and jiename like "%"#{jiename,jdbcType=VARCHAR}"%"
+	   </if>
+	   
+    </where>
+    limit #{start},#{pagesize}
+    </select>	
+	<select id="getlikeTotal" resultType="int">
+		select count(id) from kh_clientinfo 
+		 <where> 1=1
+		 <if test="kuhuname !=null and kuhuname !=''">
+			and kuhuname like "%"#{kuhuname,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="kehuaddres !=null and kehuaddres !=''">
+			and kehuaddres like "%"#{kehuaddres,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="kehutel !=null and kehutel !=''">
+			and kehutel like "%"#{kehutel,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="kehulei !=null and kehulei !=''">
+			and kehulei like "%"#{kehulei,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="kehugenre !=null and kehugenre !=''">
+			and kehugenre like "%"#{kehugenre,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="kehuday !=null and kehuday !=''">
+			and kehuday like "%"#{kehuday,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="kefuname !=null and kefuname !=''">
+			and kefuname like "%"#{kefuname,jdbcType=VARCHAR}"%"
+	   </if>
+	    <if test="channel !=null and channel !=''">
+			and channel like "%"#{channel,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="khstate !=null and khstate !=''">
+			and khstate like "%"#{khstate,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="weixin !=null and weixin !=''">
+			and weixin like "%"#{weixin,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="kaiday !=null and kaiday !=''">
+			and kaiday like "%"#{kaiday,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="qu !=null and qu !=''">
+			and qu like "%"#{qu,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="an !=null and an !=''">
+			and an like "%"#{an,jdbcType=VARCHAR}"%"
+	   </if>
+	   <if test="jiename !=null and jiename !=''">
+			and jiename like "%"#{jiename,jdbcType=VARCHAR}"%"
+	   </if>
+		 </where>
+	</select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kh_clientinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from kh_clientinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.KhClientinfo">
+    insert into kh_clientinfo (id, kuhuname, kehuaddres,kehutel, kehulei, 
+       kehugenre, kehuday,kefuname,kaiday,weixin,xu,khremark,channel,khstate)
+    values (#{id,jdbcType=INTEGER}, #{kuhuname,jdbcType=VARCHAR}, #{kehuaddres,jdbcType=VARCHAR}, 
+      #{kehutel,jdbcType=VARCHAR}, #{kehulei,jdbcType=VARCHAR}, #{kehugenre,jdbcType=VARCHAR}, 
+      #{kehuday,jdbcType=VARCHAR},#{kefuname,jdbcType=VARCHAR},#{kaiday,jdbcType=VARCHAR},#{weixin,jdbcType=VARCHAR}
+      ,#{xu,jdbcType=VARCHAR},#{khremark,jdbcType=VARCHAR},#{channel,jdbcType=VARCHAR},#{khstate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.KhClientinfo">
+    insert into kh_clientinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="kuhuname != null">
+        kuhuname,
+      </if>
+      <if test="kehuaddres != null">
+        kehuaddres,
+      </if>
+      <if test="kehutel != null">
+        kehutel,
+      </if>
+      <if test="kehulei != null">
+        kehulei,
+      </if>
+      <if test="kehugenre != null">
+        kehugenre,
+      </if>
+      <if test="kehuday != null">
+        kehuday,
+      </if>
+      <if test="kefuname != null">
+        kefuname,
+      </if>
+      <if test="kaiday != null">
+        kaiday,
+      </if>
+      <if test="weixin != null">
+        weixin,
+      </if>
+      <if test="xu != null">
+        xu,
+      </if>
+      <if test="khremark != null">
+        khremark,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+      <if test="khstate != null">
+        khstate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="kuhuname != null">
+        #{kuhuname,jdbcType=VARCHAR},
+      </if>
+      <if test="kehuaddres != null">
+        #{kehuaddres,jdbcType=VARCHAR},
+      </if>
+      <if test="kehutel != null">
+        #{kehutel,jdbcType=VARCHAR},
+      </if>
+      <if test="kehulei != null">
+        #{kehulei,jdbcType=VARCHAR},
+      </if>
+      <if test="kehugenre != null">
+        #{kehugenre,jdbcType=VARCHAR},
+      </if>
+      <if test="kehuday != null">
+        #{kehuday,jdbcType=VARCHAR},
+      </if>
+      <if test="kefuname != null">
+        #{kefuname,jdbcType=VARCHAR},
+      </if>
+      <if test="kaiday != null">
+        #{kaiday,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null">
+        #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="xu != null">
+        #{xu,jdbcType=VARCHAR},
+      </if>
+      <if test="khremark != null">
+        #{khremark,jdbcType=VARCHAR},
+      </if>
+       <if test="channel != null">
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="khstate != null">
+        #{khstate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.KhClientinfo">
+    update kh_clientinfo
+    <set>
+      <if test="kuhuname != null">
+        kuhuname = #{kuhuname,jdbcType=VARCHAR},
+      </if>
+      <if test="kehuaddres != null">
+        kehuaddres = #{kehuaddres,jdbcType=VARCHAR},
+      </if>
+      <if test="kehutel != null">
+        kehutel = #{kehutel,jdbcType=VARCHAR},
+      </if>
+      <if test="kehulei != null">
+        kehulei = #{kehulei,jdbcType=VARCHAR},
+      </if>
+      <if test="kehugenre != null">
+        kehugenre = #{kehugenre,jdbcType=VARCHAR},
+      </if>
+      <if test="kehuday != null">
+        kehuday = #{kehuday,jdbcType=VARCHAR},
+      </if>
+      <if test="kefuname != null">
+        kefuname = #{kefuname,jdbcType=VARCHAR},
+      </if>
+      <if test="kaiday != null">
+        kaiday = #{kaiday,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null">
+        weixin = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="xu != null">
+        xu = #{xu,jdbcType=VARCHAR},
+      </if>
+      <if test="khremark != null">
+        khremark = #{khremark,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="khstate != null">
+        khstate = #{khstate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.KhClientinfo">
+    update kh_clientinfo
+    set kuhuname = #{kuhuname,jdbcType=VARCHAR},
+      kehuaddres = #{kehuaddres,jdbcType=VARCHAR},
+      kehutel = #{kehutel,jdbcType=VARCHAR},
+      kehulei = #{kehulei,jdbcType=VARCHAR},
+      kehugenre = #{kehugenre,jdbcType=VARCHAR},
+      kehuday = #{kehuday,jdbcType=VARCHAR},
+      kefuname = #{kefuname,jdbcType=VARCHAR},
+      kaiday = #{kaiday,jdbcType=VARCHAR},
+      weixin = #{weixin,jdbcType=VARCHAR},
+      xu = #{xu,jdbcType=VARCHAR},
+      khremark = #{khremark,jdbcType=VARCHAR},
+      channel = #{channel,jdbcType=VARCHAR},
+      khstate = #{khstate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

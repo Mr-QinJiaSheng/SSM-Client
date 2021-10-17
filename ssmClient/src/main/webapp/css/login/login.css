@@ -1,0 +1,52 @@
+@charset "utf-8";
+::-webkit-input-placeholder { /* WebKit browsers */color:#d9d9d9;font-size:12px;}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */color:#d9d9d9;font-size:12px;}
+::-moz-placeholder { /* Mozilla Firefox 19+ */color:#d9d9d9;font-size:12px;}
+:-ms-input-placeholder { /* Internet Explorer 10+ */color:#d9d9d9;font-size:12px;}
+body{position:relative;font-family:阿里巴巴普惠体;}
+
+.login-bj{width: 100%;height: 100vh;background: #63c0e1;background: linear-gradient(-150deg, #4ad8c3, #83a2f1);display: flex;justify-content: center;align-items:center;}
+.new-login-lunbo{margin: auto; position: absolute;top:25%;right:55%;width:450px;height:320px;background-color:transparent;font-family:阿里巴巴普惠体 R;border-radius:8px;box-shadow:-26px 25px 8px rgba(0, 0, 0, 0.05);}
+/*登录框*/
+.new-login-box{margin: auto; position: absolute;top: 0;bottom: 0;right:0;left:0;width: 400px;height:500px;background-color:#ffffff;font-family:阿里巴巴普惠体 R;border-radius:8px;box-shadow:-26px 25px 8px rgba(0, 0, 0, 0.05);}
+.login-ul{margin:20px 50px 0px 0px;list-style:none;} 
+.login-div{margin:50px 0px 0px 0px;}
+.login-brows{width:100%;height:40px;text-align:center;}
+.login-name{font-size:20px;color:#1296db;}  
+/*登录错误*/
+.login-error{font-size:16px;color:#ff0066;}
+.login-errors{font-size:16px;color:#44bbcf;}
+
+/*登录提示*/
+#login .field-validation-error{margin:auto;position: absolute;top:90px;left:100px;width: 240px;text-align: center;background-color: #ffe9f4;background-image: none;height: 20px;line-height: 20px;border: 1px solid #e6aeca;box-shadow: none;color: #e10074;padding: 0px ;white-space: normal;font-size: 12px;border-radius: 5px;}
+
+/*登录*/
+.login-li{border: 1px solid transparent;margin:0px 0px 30px 0px;}
+.login-log{border: 1px solid transparent;position:relative;margin:60px 0px 0px 50px;text-align: center;}
+.login-input{width:70%;height: 40px;margin:10px 0px 0px 100px; text-indent: 1em;line-height: 40px;background-color: #fff;border-radius: 8px;font-size:16px;border: 1px solid #e6f7ff;}
+.login-input:focus{ border-style:solid;border-color: #03a9f4;box-shadow: 0 0 15px #03a9f4;border-radius: 12px;}
+.login_logo{width:100px; height:100px; border:5px solid #93defe;border-radius:100px; background:#fff; text-align:center; line-height:110px; position:absolute; top:-60px; right:145px;}
+
+/*ico*/
+.login-ico{width:60px; height:60px;display:block;background:url(../../images/ico/login-ico.png) no-repeat center;margin:auto; position: absolute;top: 0;bottom: 0;right:0;left:0;}
+.user{display:block;margin:auto; position:absolute;left:45px;top:120px;vertical-align:middle;width:40px;height:40px;background:url(../../images/ico/user.png) no-repeat center;}
+.pwd{display:block;;margin:auto; position:absolute;left:45px;top:200px;vertical-align:middle;width:40px;height:40px;background:url(../../images/ico/pwd.png) no-repeat center;}
+
+
+
+
+.login-but{margin:auto; position:absolute;top:0;left:0px; bottom:0;right:0;width:100%;height: 45px;
+	line-height:45px;font-size: 20px;color: #ffffff;font-weight: bold;background: linear-gradient(-150deg, #4ad8c3, #83a2f1);
+	cursor: pointer;border-radius: 25px;border: 1px solid transparent;
+	-webkit-transition: all 0.5s;-moz-transition: all 0.5s;-o-transition: all 0.5s;transition: all 0.5s;}
+.login-but:hover{background: linear-gradient(-150deg,#83a2f1 ,#4ad8c3);}
+.login-but span {-webkit-transition: all 0.3s;-moz-transition: all 0.3s;-o-transition: all 0.3s;transition: all 0.3s;}
+.login-but:hover > span{opacity: 0;-webkit-transform: translate(0px,40px);transform: translate(0px,40px);}
+.login-but::after{content: attr(data-text);position: absolute;width: 100%;height: 100%;top: 0;left: 0;
+	              opacity: 0;-webkit-transform: translate(-30%, 0);transform: translate(-30%, 0);
+	              -webkit-transition: all 0.3s;-moz-transition: all 0.3s;-o-transition: all 0.3s;transition: all 0.3s;	}
+.login-but:hover::after{opacity: 1;-webkit-transform: translate(0, 0);transform: translate(0, 0);}
+.login-but::before{content: '';position: absolute;top: 0;left: 0;width: 0%;height: 100%;
+	               z-index: 1;opacity: 0;background-color: rgba(255,255,255,0.1);-webkit-transition: all 0.3s;
+	               -moz-transition: all 0.3s;-o-transition: all 0.3s;transition: all 0.3s;}
+.login-but:hover::before{opacity: 1;width: 100%;}

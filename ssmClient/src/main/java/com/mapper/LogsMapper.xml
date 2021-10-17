@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.LogsMapper">
+  <resultMap id="BaseResultMap" type="com.entity.Logs">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="loname" jdbcType="VARCHAR" property="loname" />
+    <result column="day" jdbcType="VARCHAR" property="day" />
+    <result column="lei" jdbcType="VARCHAR" property="lei" />
+    <result column="biao" jdbcType="VARCHAR" property="biao" />
+    <result column="biaoid" jdbcType="VARCHAR" property="biaoid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, loname, day, lei, biao, biaoid
+  </sql>
+    <select id="show"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from logs order by id desc limit #{start},#{pagesize}
+  </select>
+  <select id="getTotal" resultType="int">
+		select count(id) from logs 
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from logs
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from logs
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Logs">
+    insert into logs (id, loname, day, 
+      lei, biao, biaoid)
+    values (#{id,jdbcType=INTEGER}, #{loname,jdbcType=VARCHAR}, #{day,jdbcType=VARCHAR}, 
+      #{lei,jdbcType=VARCHAR}, #{biao,jdbcType=VARCHAR}, #{biaoid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Logs">
+    insert into logs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="loname != null">
+        loname,
+      </if>
+      <if test="day != null">
+        day,
+      </if>
+      <if test="lei != null">
+        lei,
+      </if>
+      <if test="biao != null">
+        biao,
+      </if>
+      <if test="biaoid != null">
+        biaoid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="loname != null">
+        #{loname,jdbcType=VARCHAR},
+      </if>
+      <if test="day != null">
+        #{day,jdbcType=VARCHAR},
+      </if>
+      <if test="lei != null">
+        #{lei,jdbcType=VARCHAR},
+      </if>
+      <if test="biao != null">
+        #{biao,jdbcType=VARCHAR},
+      </if>
+      <if test="biaoid != null">
+        #{biaoid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Logs">
+    update logs
+    <set>
+      <if test="loname != null">
+        loname = #{loname,jdbcType=VARCHAR},
+      </if>
+      <if test="day != null">
+        day = #{day,jdbcType=VARCHAR},
+      </if>
+      <if test="lei != null">
+        lei = #{lei,jdbcType=VARCHAR},
+      </if>
+      <if test="biao != null">
+        biao = #{biao,jdbcType=VARCHAR},
+      </if>
+      <if test="biaoid != null">
+        biaoid = #{biaoid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Logs">
+    update logs
+    set loname = #{loname,jdbcType=VARCHAR},
+      day = #{day,jdbcType=VARCHAR},
+      lei = #{lei,jdbcType=VARCHAR},
+      biao = #{biao,jdbcType=VARCHAR},
+      biaoid = #{biaoid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

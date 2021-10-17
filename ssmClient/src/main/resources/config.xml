@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+   <settings>
+<!--     启用二级缓存 -->
+      <setting name="cacheEnabled" value="true"/>
+<!-- 	启用延迟加载波 -->
+	<setting name="lazyLoadingEnabled" value="true" />
+	<setting name="aggressiveLazyLoading" value="false" />
+   </settings>
+   <!-- 别名 -->
+   <typeAliases>
+       <package name="com.entity"/>
+   </typeAliases>
+ 
+   <!-- 引用映射文件 -->	
+	<mappers>
+		<mapper resource="com/mapper/KhClientinfoMapper.xml" /> 
+		<mapper resource="com/mapper/YhEmployeeMapper.xml" />
+		<mapper resource="com/mapper/YhRoleMapper.xml" />
+		<mapper resource="com/mapper/YhRolerootMapper.xml" />
+		<mapper resource="com/mapper/YhRootMapper.xml" />
+	    <mapper resource="com/mapper/KhHuiMapper.xml" /> 
+	    <mapper resource="com/mapper/LogMapper.xml" /> 
+		<mapper resource="com/mapper/LogsMapper.xml" /> 
+	</mappers>
+</configuration>

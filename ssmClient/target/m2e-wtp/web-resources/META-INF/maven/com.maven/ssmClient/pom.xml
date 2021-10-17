@@ -1,0 +1,142 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.maven</groupId>
+  <artifactId>ssmClient</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>ssmClient Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.3</version>
+		</dependency>
+
+		<!-- mybatis-spring 整合 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+
+		<!-- spring相关依赖 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>3.1.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>3.1.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>3.1.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>3.1.1.RELEASE</version>
+		</dependency>
+		<!-- 延时加载/cglib -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+		<!-- mysql驱动 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.10</version>
+		</dependency>
+
+		<!-- 数据源 -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+        
+		<!-- jstl -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- log -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.7</version>
+		</dependency>
+		<!-- spring aop相关依赖 -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.8.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.10</version>
+		</dependency>
+		<!-- javax.servlet-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- spring-webmvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>3.1.2.RELEASE</version>
+		</dependency>
+
+		<!-- commons-fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+		<!-- commons-io图片上传 -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.2</version>
+		</dependency>
+   <!-- https://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl -->
+   <!--xls导入导出没目录  -->
+        <dependency>
+            <groupId>net.sourceforge.jexcelapi</groupId>
+            <artifactId>jxl</artifactId>
+            <version>2.6.12</version>
+        </dependency> 
+        
+<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+  <!--xls导出下载有目录的  -->
+<dependency>
+<groupId>org.apache.poi</groupId>
+<artifactId>poi</artifactId>
+<version>3.6</version>
+</dependency> 
+  </dependencies>
+  <build>
+    <finalName>ssmClient</finalName>
+  </build>
+</project>

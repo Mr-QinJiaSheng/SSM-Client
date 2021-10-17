@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.YhEmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.entity.YhEmployee">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="empName" jdbcType="VARCHAR" property="empname" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="roleId" jdbcType="INTEGER" property="roleid" />
+    <result column="tel" jdbcType="VARCHAR" property="tel"  />
+    <association javaType="YhRole" property="yhrole">
+			<id column="oid" property="id" />
+			<result column="roleName" property="rolename" />			
+	</association>
+	 <association javaType="YhRoot" property="yhroot">
+			<id column="eid" jdbcType="INTEGER"  property="id" />
+            <result column="rootName" property="rootname" />
+            <result column="url" property="url" />			
+	</association>
+    <association javaType="YhRoleroot" property="yhroleroot">
+			 <result column="roleId"  property="roleid" />
+             <result column="rootId"  property="rootid" />
+	</association>
+	            
+  </resultMap>
+  <sql id="Base_Column_List">
+    yh_employee.id, empName, password, roleId, tel
+  </sql>
+   <select id="find" resultMap="BaseResultMap">
+   select  <include refid="Base_Column_List" />, yh_role.roleName from yh_employee,yh_role
+   where yh_employee.roleId=yh_role.id 
+   <if test="roleName != null">
+   and yh_role.roleName!="管理员"
+   </if>
+   limit #{start},#{pagesize}
+  </select>
+    <select id="getTotal" resultType="int">
+		select IFNULL(count(yh_employee.id),0) from yh_employee,yh_role
+        <where> yh_employee.roleId=yh_role.id
+         <if test="roleName != null">
+           and yh_role.roleName!="管理员"
+         </if>
+         </where>
+  </select>
+  <select id="reg" resultType="YhEmployee" >
+       select <include refid="Base_Column_List" />
+       from yh_employee where empName=#{empname,jdbcType=VARCHAR}  
+   </select>
+    <select id="rights" resultType="String" parameterType="YhEmployee">
+  select yh_root.url from yh_root,yh_employee, yh_roleroot 
+where yh_employee.roleId=yh_roleroot.roleId 
+and yh_root.id=yh_roleroot.rootId and yh_employee.empName=#{empname,jdbcType=INTEGER}
+  </select>
+  
+  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />,yh_role.roleName
+    from yh_employee,yh_role
+    where yh_employee.roleId=yh_role.id and yh_employee.id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from yh_employee
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="tel" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from yh_employee
+    where tel = #{tel,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from yh_employee
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.YhEmployee">
+    insert into yh_employee (id, empName, password, 
+      roleId, tel)
+    values (#{id,jdbcType=INTEGER}, #{empname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{roleid,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.YhEmployee">
+    insert into yh_employee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="empname != null">
+        empName,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="roleid != null">
+        roleId,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="empname != null">
+        #{empname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.YhEmployee">
+    update yh_employee
+    <set>
+      <if test="empname != null">
+        empName = #{empname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null">
+        roleId = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.YhEmployee">
+    update yh_employee,yh_role
+    set yh_employee.empName = #{yh_employee.empname,jdbcType=VARCHAR},
+      yh_employee.password = #{yh_employee.password,jdbcType=VARCHAR},
+      yh_employee.roleId = #{yh_employee.roleid,jdbcType=INTEGER},
+      yh_employee.tel = #{yh_employee.tel,jdbcType=VARCHAR}
+      yh_role.roleName = #{yh_role.roleName,jdbcType=VARCHAR},
+    where yh_employee.id = #{yh_employee.id,jdbcType=INTEGER}
+  </update>
+  <select id="like" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />, yh_role.roleName 
+    from yh_employee,yh_role
+    <where> yh_employee.roleId=yh_role.id
+    	<if test="roleName != null">
+           and yh_role.roleName!="管理员"
+         </if>	
+			<if test="empname!=null and empname!=''">
+				and yh_employee.empName like "%"#{empname,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="rolename!=null and rolename!=''">
+				and yh_role.roleName like "%"#{rolename,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="tel!=null and tel!=''">
+				and yh_employee.tel like "%"#{tel,jdbcType=VARCHAR}"%"
+			</if>
+			
+	</where>
+	limit #{start},#{pagesize}
+	</select>
+	<select id="getlikeTotal" resultType="int">
+	   select count(yh_employee.id)
+       FROM yh_employee,yh_role
+       <where> yh_employee.roleId=yh_role.id
+       	<if test="roleName != null">
+           and yh_role.roleName!="管理员"
+         </if>	
+			<if test="empname!=null and empname!=''">
+				and yh_employee.empName like "%"#{empname,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="rolename!=null and rolename!=''">
+				and yh_role.roleName like "%"#{rolename,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="tel!=null and tel!=''">
+				and yh_employee.tel like "%"#{tel,jdbcType=VARCHAR}"%"
+			</if>		
+	</where>
+	</select>
+  <select id="login"  resultMap="BaseResultMap" parameterType="YhEmployee" >
+   select <include refid="Base_Column_List" /> 
+   from yh_employee where empName=#{empname,jdbcType=VARCHAR} and password=#{password,jdbcType=VARCHAR}  
+  </select>
+  <select id="show" resultType="YhEmployee">
+		select <include refid="Base_Column_List" />
+		from yh_employee
+		limit #{start},#{pagesize}
+   </select>
+
+	
+</mapper>

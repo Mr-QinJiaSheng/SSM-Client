@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.YhRoleMapper">
+  <resultMap id="BaseResultMap" type="com.entity.YhRole">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="roleName" jdbcType="VARCHAR" property="rolename" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, roleName
+  </sql>
+  <select id="findSingle" resultType="int">
+    select max(id) from yh_role   
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from yh_role
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from yh_role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.YhRole">
+    insert into yh_role (id, roleName)
+    values (#{id,jdbcType=INTEGER}, #{rolename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.YhRole">
+    insert into yh_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="rolename != null">
+        roleName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="rolename != null">
+        #{rolename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.YhRole">
+    update yh_role
+    <set>
+      <if test="rolename != null">
+        roleName = #{rolename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.YhRole">
+    update yh_role
+    set roleName = #{rolename,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="show" resultMap="BaseResultMap" parameterType="YhRole">
+		select <include refid="Base_Column_List" /> from yh_role
+	</select>
+</mapper>

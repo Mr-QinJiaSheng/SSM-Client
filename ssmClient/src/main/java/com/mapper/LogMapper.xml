@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.LogMapper">
+  <resultMap id="BaseResultMap" type="com.entity.Log">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="onlinetime" jdbcType="VARCHAR" property="onlineTime" />
+    <result column="exittime" jdbcType="VARCHAR" property="exitTime" />
+    <result column="sessionid" jdbcType="VARCHAR" property="sessionid" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, account, onlinetime, exittime, sessionid,position
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from log
+    where sessionid = #{sessionid,jdbcType=VARCHAR}
+  </select>
+  <select id="show"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from log order by id desc limit #{start},#{pagesize}
+  </select>
+  <select id="getTotal" resultType="int">
+		select count(id) from log 
+  </select>
+
+  <select id="findSingle" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from log where id = (select max(id) from log)
+  </select>
+  
+  <select id="like" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from log 
+    <where> 1=1
+    		<if test="account!=null and account!=''">
+				 and account like "%"#{account,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="onlineTime != null and onlineTime !=''">
+				 and onlineTime like "%"#{onlineTime,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="exitTime != null and exitTime !=''">
+				 and exitTime like "%"#{exitTime,jdbcType=VARCHAR}"%"
+			</if>
+    </where> order by id desc limit #{start},#{pagesize}
+  </select>
+  <select id="getlikeTotal" resultType="int">
+		select count(id) from log 
+		 <where> 1=1
+		    <if test="account!=null and account!=''">
+				 and account like "%"#{account,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="onlineTime != null and onlineTime !=''">
+				 and onlineTime like "%"#{onlineTime,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="exitTime != null and exitTime !=''">
+				 and exitTime like "%"#{exitTime,jdbcType=VARCHAR}"%"
+			</if>	 				
+	</where>
+	</select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Log">
+    insert into log (id, account, onlinetime, 
+      exittime, sessionid,position)
+    values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{onlineTime,jdbcType=VARCHAR}, 
+      #{exitTime,jdbcType=VARCHAR}, #{sessionid,jdbcType=VARCHAR},#{position,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Log">
+    insert into log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="onlineTime != null">
+        onlinetime,
+      </if>
+      <if test="exitTime != null">
+        exittime,
+      </if>
+      <if test="sessionid != null">
+        sessionid,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTime != null">
+        #{onlineTime,jdbcType=VARCHAR},
+      </if>
+      <if test="exitTime != null">
+        #{exitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionid != null">
+        #{sessionid,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Log">
+    update log
+    <set>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTime != null">
+        onlinetime = #{onlineTime,jdbcType=VARCHAR},
+      </if>
+      <if test="exitTime != null">
+        exittime = #{exitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionid != null">
+        sessionid = #{sessionid,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Log">
+    update log
+    set account = #{account,jdbcType=VARCHAR},
+      onlinetime = #{onlineTime,jdbcType=VARCHAR},
+      exittime = #{exitTime,jdbcType=VARCHAR},
+      sessionid = #{sessionid,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
